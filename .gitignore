@@ -1,2 +1,5 @@
 # Batch files for windows
 /.batch/
+
+# Data folder
+/data
