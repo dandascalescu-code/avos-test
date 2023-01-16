@@ -9,6 +9,12 @@ func Decompress(data []uint8) []uint8 {
 	codes := toCodes(data)
 	fmt.Println(codes[:4])
 
+	dict := map[int]string {}
+	for i := 0; i < 256; i++ {
+        dict[i] = string(rune(i))
+    }
+    fmt.Println(dict)
+
 	fmt.Println("Done.")
 	return nil
 }
