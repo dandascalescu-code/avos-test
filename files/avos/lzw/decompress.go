@@ -17,19 +17,21 @@ func Decompress(data []uint8) string{
 	output := ""
 	previous := ""
 	nextKey := 256
-	for _, code := range codes {
+	for i, code := range codes {
 		W, ok := dict[int(code)]
 		if ok {
+			if i != 0 {
+				dict[nextKey] = ( previous + string(W[0]) )
+				nextKey++
+			}
 			output += W
-			dict[nextKey] = ( previous + string(W[0]) )
-			nextKey++
 
 			previous = W
 		} else {
 			V := previous + string(previous[0]) // previous[0] will not fail as previous must be length > 1 for the map lookup to fail
-			output += V
 			dict[nextKey] = V
 			nextKey++
+			output += V
 
 			previous = V
 		}

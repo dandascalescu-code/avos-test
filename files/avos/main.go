@@ -12,7 +12,7 @@ import (
 func main() {
 	curDir, _ := os.Getwd()
 	rootDir := filepath.Dir(filepath.Dir(curDir))
-	filePath := filepath.Join(rootDir, "data", "01-hello.txt.z")
+	filePath := filepath.Join(rootDir, "data", "02-book.txt.z")
 
 	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
