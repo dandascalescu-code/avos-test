@@ -9,7 +9,6 @@ import (
 func Decompress(data []uint8) string{
 	fmt.Print("Decompressing file... ")
 
-	fmt.Println()
 	codes := toCodes(data)
 
 	dict := initialDict()
@@ -42,10 +41,9 @@ func Decompress(data []uint8) string{
 			previous = V
 		}
 	}
-	fmt.Println(output)
 
 	fmt.Println("Done.")
-	return "nil"
+	return output
 }
 
 func toCodes(data []uint8) []uint16 {
