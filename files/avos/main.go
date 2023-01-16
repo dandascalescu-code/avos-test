@@ -2,10 +2,20 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/dandascalescu-code/avos-test/files/avos/lzw"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 )
 
 func main() {
-	fmt.Println(lzw.Test())
+	curDir, _ := os.Getwd()
+	rootDir := filepath.Dir(filepath.Dir(curDir))
+	filePath := filepath.Join(rootDir, "data", "01-hello.txt.z")
+
+	data, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Printf("%T", data)
+	}
 }
