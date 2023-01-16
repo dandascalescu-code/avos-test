@@ -6,8 +6,15 @@ func Decompress(data []uint8) []uint8 {
 	fmt.Print("Decompressing file... ")
 
 	fmt.Println()
+	codes := toCodes(data)
+	fmt.Println(codes[:4])
+
+	fmt.Println("Done.")
+	return nil
+}
+
+func toCodes(data []uint8) []uint16 {
 	nBytes := len(data)
-	fmt.Printf("%v uint8s\n", nBytes)
 	codes := []uint16{}
 	for i := 0; i < nBytes; i += 3 {
 		if i < nBytes-2 {
@@ -28,8 +35,6 @@ func Decompress(data []uint8) []uint8 {
 			codes = append(codes, code)
 		}
 	}
-	fmt.Printf("%v uint16s\n", len(codes))
 
-	fmt.Println("Done.")
-	return nil
+	return codes
 }
