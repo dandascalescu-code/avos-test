@@ -2,7 +2,7 @@
 
 [Instructions](https://github.com/dandascalescu-code/avos-test/blob/main/instructions.pdf)
 
-TODO description on completion
+Started
 
 #
 [Dan Dascalescu](https://github.com/ddascalescu)
