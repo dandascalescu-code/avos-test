@@ -32,8 +32,8 @@ func main() {
 	}
 	fmt.Println("...")
 
-	newData := lzw.Decompress(data)
-	if newData != nil {
-		fmt.Println(string(newData))
+	output := lzw.Decompress(data)
+	if output != "nil" {
+		fmt.Println(string(output))
 	}
 }

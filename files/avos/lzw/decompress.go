@@ -2,26 +2,47 @@ package lzw
 
 import "fmt"
 
-func Decompress(data []uint8) []uint8 {
+//TODO comments
+func Decompress(data []uint8) string{
 	fmt.Print("Decompressing file... ")
 
 	fmt.Println()
 	codes := toCodes(data)
-	fmt.Println(codes[:4])
 
 	dict := map[int]string {}
 	for i := 0; i < 256; i++ {
         dict[i] = string(rune(i))
     }
-    fmt.Println(dict)
+
+	output := ""
+	previous := ""
+	nextKey := 256
+	for _, code := range codes {
+		W, ok := dict[int(code)]
+		if ok {
+			output += W
+			dict[nextKey] = ( previous + string(W[0]) )
+			nextKey++
+
+			previous = W
+		} else {
+			V := previous + string(previous[0]) // previous[0] will not fail as previous must be length > 1 for the map lookup to fail
+			output += V
+			dict[nextKey] = V
+			nextKey++
+
+			previous = V
+		}
+	}
+	fmt.Println(output)
 
 	fmt.Println("Done.")
-	return nil
+	return "nil"
 }
 
 func toCodes(data []uint8) []uint16 {
 	nBytes := len(data)
-	codes := []uint16{}
+	codes := []uint16 {}
 	for i := 0; i < nBytes; i += 3 {
 		if i < nBytes-2 {
 			var byte1, byte2, byte3 uint8 = data[i], data[i+1], data[i+2]
