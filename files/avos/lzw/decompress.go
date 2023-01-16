@@ -1,6 +1,9 @@
 package lzw
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 //TODO comments
 func Decompress(data []uint8) string{
@@ -9,15 +12,18 @@ func Decompress(data []uint8) string{
 	fmt.Println()
 	codes := toCodes(data)
 
-	dict := map[int]string {}
-	for i := 0; i < 256; i++ {
-        dict[i] = string(rune(i))
-    }
+	dict := initialDict()
+	dictSize := int(math.Pow(2, 12))
 
 	output := ""
 	previous := ""
 	nextKey := 256
 	for i, code := range codes {
+		if nextKey == dictSize {
+			dict = initialDict()
+			nextKey = 256
+		}
+
 		W, ok := dict[int(code)]
 		if ok {
 			if i != 0 {
@@ -66,4 +72,13 @@ func toCodes(data []uint8) []uint16 {
 	}
 
 	return codes
+}
+
+func initialDict() map[int]string {
+	dict := map[int]string {}
+	for i := 0; i < 256; i++ {
+        dict[i] = string(rune(i))
+    }
+
+	return dict
 }
